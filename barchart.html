@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>barchart</title>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+<body>
+    
+    <h1>D3 Charting</h1>
+    
+    <div id="draw-here"></div>  <!-- svg inside dive with id="draw-here" -->
+    
+    <script>
+        var h = 500;
+        var w = 500;
+        var barPadding = 1;
+        
+        var dataset = [
+            450, 100, 100, 279, 500, 25, 350, 120, 80, 130,     //dataset of discrete integer values
+            110, 102, 375, 200, 175, 168, 180, 230, 205,
+            ];
+            
+            var colWidth = w / dataset.length;
+            var barWidth = colWidth - barPadding
+            var svg = d3.select("#draw-here")  //d3 to create object. select ties viewport with div #draw-here
+                        .append("svg")    //append svg as child of #draw-here as part of DOM
+                        .attr("height", h)
+                        .attr("width", w);
+                        
+            svg.selectAll("rect")
+                .data(dataset)
+                .enter()
+                .append("rect")     //append rectangle..give x,y coordinates, height, width
+                .attr("x", function (d, i) {  //d=datum ..i=index of datum
+                    return i * colWidth;             /* replaced ..(w / dataset.length) with colWidth*/
+                })
+                .attr("y", function (d){
+                    return h - d;
+                })
+                .attr("height", function (d) {
+                    return d;
+                })
+                .attr("width", barWidth);    /* replaced  w / dataset.length with colWidth */
+                
+            svg.selectAll("text")
+            .data(dataset)
+            .enter()
+            .append("text")         //for each entry in dataset..create text object
+            .text(function (d) {
+                return d;
+            })
+            .attr("text-anchor", "middle")      //svg object text-anchor. middle(centre allign text)
+            .attr("x", function (d, i) {
+                return i * colWidth + barWidth / 2;  // in the middle of bar
+            })
+            .attr("y", function (d) {
+                return h - d + 14; // 14 px down from top of bar
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white")  //writing white
+    </script>
+</body>
+</html>
