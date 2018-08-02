@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 interactive charts</title>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+
+</head>
+<body>
+    <h1>Data visualisation</h1>
+    <h2>D3 charting</h2>
+    
+    <button onclick="change_data()">Change Data</button>            <!-- 2 buttons and inputs -->
+    <button onclick="filter_data()">Filter Data</button>
+    <input type=text id="filter_value" placeholder="minimum value"/>
+    <br>
+    
+    <div id="draw-here"></div>
+    
+    <script>
+    
+    /* global d3 */
+    
+    //size of chart
+    var w = 500;
+    var h = 500;
+    var barPadding = 1;
+    var numberOfBars = 19;
+    
+    // useful variables
+    var colwidth = w / numberOfBars;
+    var barwidth = colwidth - barPadding;
+    
+    // create an svg element
+    var svg = d3.select("#draw-here")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+        
+        //first call to change_data will plot the initial chart
+    change_data();
+    
+    //generates a random set of data and plots it as a bar chart
+    //called once on page load and then each time button is clicked.
+    function change_data() {
+        var data = generate_random_data(numberOfBars);  //random set of data and sets it as bar chart
+        plot_data(data);            //called on page load and each time button clicked
+    }
+    
+    //generates a random set of data and filters it before plotting it as a bar chart
+    //removes any bars less than the value in the filter input box
+    function filter_data() {
+        var data = generate_random_data(numberOfBars);
+        data = data.filter(function (d) { return d >= get_filter_value();});
+        plot_data(data);
+    }
+    function plot_data(data) {
+        // bind the data to the collections of rectangles(to dataset passed in) and text in the svg element
+        var bars = svg.selectAll("rect")
+                .data(data);
+        var labels = svg.selectAll("text")
+                .data(data)
+    
+    
+        //remove any new rectangles and labels that are needed(if new data has less items than existing chart)
+        bars.exit().remove();
+        labels.exit().remove;
+        
+        //append any new rectangles and labels that are needed(if new data has more items than existing chart)
+        create_bars(bars);
+        create_labels(labels);
+        
+        //there should now be the right number of rectangles and labels
+        //resize and position each one according to the new data items
+        resize_bars(bars, data);
+        position_labels(labels, data);
+    } 
+    
+    function create_bars(bars) {
+        bars.enter()
+            .append("rect");
+    }
+    
+   //the code necessary to resize an already existing rect to the correct size
+   function resize_bars(bars, data) {
+       bars.transition()
+       .duration(500)   //takes 500ms to  bind and render the data
+       .attr("x", function(d, i) {
+           return i * colwidth;
+       })
+       .attr("y", function(d) {
+           return h - d;
+       })
+       .attr("width", barwidth)
+       .attr("height", function(d) {
+           return d;
+       });
+   }
+  
+    //create text labels(these are the properties that don't change when the bar is resized.)
+    function create_labels(labels) {
+        labels.enter()
+        .append("text")
+        .attr("text-anchor, "middle")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white");
+    }
+    
+    // position the text labels(these are the properties that do change when the bar is resized)
+    function position_labels(labels, data) {
+        labels.transition()
+        .duration(500)
+        .text(function(d) {
+            return d;
+        })
+        .attr("x", function(d, i) {
+            return i * colWidth + barWidth / 2;
+        })
+        .attr("y", function(d) {
+            return h - d + 14;
+        });
+    }
+    
+    //return an array of n integers
+    function generate_random_data(n) {
+        var data = [];
+        
+        for(var i-0; i<n; i++) {
+            var value = Math.floor((Math.random() * 500) + 1);
+            data.push(value);
+        }
+        return data;
+    }
+     
+    // get the value from the filter input box, or use 100 by default.
+    function get_filter_value() {
+        var value = null;
+        var x-document.getElementById("filter_value").value;
+        value = parseInt(x, 10);
+        
+        if(isNaN(value))
+        value=100;
+        
+        return value;
+        }
+        
+    </script>
+</body>
+</html>
+
+
+
+
