@@ -1,49 +1,459 @@
-Start of transcript. Skip to the end.
-D3 is a set of objects functions and other good stuff that comes in the form
-of a third-party JavaScript file written by Mike Bostock which you can use just
-like any external javascript file in the script tag and we've included here so
-what D3 does is it creates SVG's similar to what we created in earlier
-units plus a lot more but it does it programmatically rather than in the form
-of markup one of the things d3 relies on is attaching itself to some HTML iment
-such as a div for example
-you
-we're going to create an SVG inside that div with the ID draw here unless we're
-doing now also notice on line 20 we have a JavaScript array with five items so
-we're going to use those as the data to be provided to our SVG's notice they're
-on line 22 we're using the d3 object and a function on that object called select
-so that attaches that the Select inside the Select we attach ourselves to they
-to the draw here ID also notice that d3 allows you to chain functions together
-you'll see that they're separated by a dot that's it conveniently allows you to
-chain related functions together so you can see on line 23 we are
-programmatically creating an SVG element then were creating an assigning a width
-attribute and a height attribute to that SVG and the width and the height values
-are declared on lines 18 and 19 line 22 results in the creation of a variable or
-an object called SVG we could name or whatever we chose to name it would we're
-going to call SVG we then use that object then to call a particular
-function called select all and that select all will select all the circles
-we'll let's select as many circles as that are generated as a result of
-binding to the data on line 20 we then use the array defined on line 20 and
-pass it as a variable into our data function we then use the enter function
-they d3 enter function to bind the data to the circles that we are about to
-create so then we create a circle we're going to create a circle for each datum
-which is d each entry in the array the x value for each one will be set
-programmatically and we use an anonymous function here and the anonymous function
-can take one or two variables our parameters in our case we're using
-two at the moment d and i represents the individual data such as 40 50 10 and
-so on and I is the index of that data in the array by the way the naming D and I
-is just a convention you could call them anything you want to but but Convention
-and dictates that we call them d and i so that will give us our our
-x-coordinate for each for each datum for each circle now we want to do is they on
-line 32 we constructed so that each entry the x-value of each entry is a
-hundred and fifty units to the right of its predecessor the y-coordinate splits
-the height of the viewport and into
-and you can see that here so these elements combine to be 500 pixels apart
-and the radius then for each one of these has been defined in the array so
-let's try a little experiment let's add an extra element to our to our data we
-do refresh we can't see it why not it's because that last element is
-displayed but it's outside the maximum width of our viewport so keep an eye on
-that it catches people out in the beginning when they're learning d3
-initially so we increase
-the width and there we can see it so that's a nice introduction to d3
-End of transcript. Skip to the start.
-  Links To External Resources
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="draw-here"></div>
+    
+    <script>
+        
+    </script>
+</body>
+</html>
+
+
+2:  Svg html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scalable Vector Graphics</title>
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>Scalable Vector Graphics</h2>
+
+
+    <!--<svg>-->
+    <!--    <rect x="0" y="0" width="100" height="50" fill="red"/>-->
+    <!--    <circle cx="100" cy="25" r="20" fill="blue"/>-->
+    <!--</svg>-->
+
+    <svg>
+        <polygon points="0,0 100,0 200,100 250,50 300,300 0,300"
+    </svg>
+
+    <h3>Rectangle</h3>
+    <svg>
+        <rect x="0" y="0" width="100" height="50"/>
+    </svg>
+
+    <h3>Circle</h3>
+    <svg>
+        <circle cx="50" cy="30" r="30"/>
+    </svg>
+
+    <h3>Ellipse</h3>
+    <svg>
+        <ellipse cx="100" cy="20" rx="50" ry="20"/>
+    </svg>
+
+    <h3>Polygon</h3>
+    <svg>
+        <polygon points="100,0 120,0 130,10 115,40 90,20"/>
+    </svg>
+
+    <h3>Composite Image</h3>
+    <svg>
+        <rect x="0" y="0" width="20" height="20"/>
+        <circle cx="50" cy="30" r="30"/>
+        <ellipse cx="200" cy="30" rx="50" ry="20"/>
+
+        <polygon points="100,0 120,0 130,10 115,40 90,20"/>
+    </svg>
+
+    <h3>Bar Chart</h3>
+    <svg>
+        <rect x="0" y="0" width="19" height="150"/>
+        <rect x="20" y="20" width="19" height="130"/>
+        <rect x="40" y="50" width="19" height="100"/>
+        <rect x="60" y="10" width="19" height="140"/>
+        <rect x="80" y="100" width="19" height="50"/>
+        <rect x="100" y="30" width="19" height="120"/>
+        <rect x="120" y="40" width="19" height="110"/>
+    </svg>
+
+    <h3>Colour</h3>
+    <svg>
+        <rect x="0" y="0" width="19" height="150" fill="red"/>
+        <rect x="20" y="20" width="19" height="130" fill="orange"/>
+        <rect x="40" y="50" width="19" height="100" fill="yellow"/>
+        <rect x="60" y="10" width="19" height="140" fill="green"/>
+        <rect x="80" y="100" width="19" height="50" fill="blue"/>
+        <rect x="100" y="30" width="19" height="120" fill="indigo"/>
+        <rect x="120" y="40" width="19" height="110" fill="violet"/>
+    </svg>
+</body>
+</html>
+
+
+3: data driven documents
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data Driven Documents</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>Data Driven Documents</h2>
+
+    <div id="draw-here"></div>
+
+    <script>
+    var data = [
+        {"name": "Donald Duck", "bio":"First appeared in the 1934 cartoon The Wise Little Heon."},
+        {"name": "Mickey Mouse", "bio":"The first Mickey Mouse cartoon actually completed was Plane Crazy"},
+        {"name": "Minnie Mouse", "bio":"First appeared in Steamboad Willie, in 1928."},
+        {"name": "Goofy", "bio":"First appearance in 1932's Mickey's Revue."},
+    ];
+    //Create SVG element
+    var doc = d3.select("#draw-here");
+    var doc_item = doc.selectAll("div")
+        .data(data)
+        .enter()
+        .append("div");
+    doc_item.append("h4").text(function (d) {
+        return d.name;
+    });
+    doc_item.append("p").text(function (d) {
+        return d.bio;
+    });
+    </script>
+</body>
+</html>
+
+
+3: d3 and svg
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>D3 and Scalable Vector Graphics</h2>
+
+    <div id="draw-here"></div>
+
+    <script>
+    var w = 500;
+    var h = 200;
+    var data = [40, 50, 10, 30, 20];
+    //Create SVG element
+    var svg = d3.select("#draw-here")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+    svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {
+            return 50 + (i * 100);
+        })
+        .attr("cy", h / 2)
+        .attr("r", function (d) {
+            return d;
+        });
+    </script>
+</body>
+</html>
+
+4:d3 charting
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>D3 Charting</h2>
+
+    <div id="draw-here"></div>
+
+    <script>
+    var w = 500;
+    var h = 500;
+    var barPadding = 1;
+    var dataset = [
+        450, 100, 100, 279, 500, 25, 350, 120, 80, 130,
+        110, 102, 375, 200, 175, 168, 180, 230, 205,
+    ];
+    var svg = d3.select("#draw-here")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {
+            return i * (w / dataset.length);
+        })
+        .attr("y", function(d) {
+            return h - d;
+        })
+        .attr("width", w / dataset.length - barPadding)
+        .attr("height", function(d) {
+            return d;
+        });
+    svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        .attr("text-anchor", "middle")
+        .attr("x", function(d, i) {
+            return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+        })
+        .attr("y", function(d) {
+            return h - d + 14;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white");
+    </script>
+</body>
+</html>
+
+5:  d3 log scale
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>D3 Logarithmic Scale</h2>
+
+    <div id="draw-here"></div>
+
+    <script>
+    var w = 500;
+    var h = 500;
+    var barPadding = 1;
+    var dataset = [
+        5, 10, 100, 279, 500, 25, 750, 1200, 800, 1300,
+        110, 102, 15, 200, 175, 168, 180, 230, 205,
+    ];
+    var scale = d3.scale.log();
+    scale.domain([5, 1300]);
+    scale.range([0, 500]);
+    var svg = d3.select("#draw-here")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {
+            return i * (w / dataset.length);
+        })
+        .attr("y", function(d) {
+            return h - scale(d);
+        })
+        .attr("width", w / dataset.length - barPadding)
+        .attr("height", function(d) {
+            return scale(d);
+        });
+    svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        .attr("text-anchor", "middle")
+        .attr("x", function(d, i) {
+            return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+        })
+        .attr("y", function(d) {
+            return h - scale(d) + 14;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white");
+    </script>
+</body>
+</html>
+
+
+6: change data
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>D3 Charting</h2>
+
+    <button onclick="change_data()">Change Data</button>
+    <button onclick="filtered_data()">Filtered Data</button>
+    <input type=text id="filter_value" placeholder="Minimum required (100)"/>
+    <hr>
+    
+    <div id="draw-here"></div>
+
+    <script>
+    
+    // Size of Chart
+    var w = 500;
+    var h = 500;
+    var barPadding = 1;
+    var numberOfBars = 19;
+    
+    // Useful Variables
+    colWidth = w / numberOfBars;
+    barWidth = colWidth - barPadding;
+    // Create an SVG element
+    var svg = d3.select("#draw-here")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+    // First Call to change_data will plot the initial chart
+    change_data();
+    // Generates a Random set of data and plots it as a bar chart
+    // Called once on page load, then each time the button is clicked.
+    function change_data() {
+        var data = generate_random_data(numberOfBars);
+        plot_data(data);
+    }
+    
+    // Generates a Random set of data and plots it as a bar chart
+    // Called once on page load, then each time the button is clicked.
+    function filtered_data() {
+        var data = generate_random_data(numberOfBars);
+        data = data.filter(function (d) { return d > get_filter_value(); });
+        plot_data(data);
+    }
+    
+    
+    function plot_data(data) {
+        // Bind the data to the collections of rectangles and text in the svg element
+        var bars = svg.selectAll("rect")
+                .data(data);
+        var labels = svg.selectAll("text")
+                .data(data);
+        
+        // Remove any unneeded rectangles and labels (if new data has less items than the existing chart)
+        bars.exit().remove();
+        labels.exit().remove();
+        // Append any new rectangles and labels that are needed (if new data has more items than existing chart)
+        create_bars(bars);
+        create_labels(labels);
+        // There should now be the right number of rectangles and labels. 
+        // Resize and position each one according to the new data items.
+        resize_bars(bars, data);
+        position_labels(labels, data);        
+    }
+    function create_bars(bars) {
+        bars.enter()
+            .append("rect");
+    }
+    
+    function resize_bars(bars, data) {
+        bars.transition()
+            .duration(500)
+            .attr("x", function(d, i) {
+                return i * colWidth;
+            })
+            .attr("y", function(d) {
+                return h - d;
+            })
+            .attr("width", barWidth)
+            .attr("height", function(d) {
+                return d;
+            });
+    }    
+    
+    function create_labels(labels) {
+        labels.enter()
+            .append("text")
+            .attr("text-anchor", "middle")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white");
+    }
+    
+    function position_labels(labels, data) {
+        labels.transition()
+            .duration(500)
+            .text(function(d) {
+                return d;
+            })
+            .attr("x", function(d, i) {
+                return i * colWidth + barWidth / 2;
+            })
+            .attr("y", function(d) {
+                return h - d + 14;
+            });
+    }
+    
+    function generate_random_data(n) {
+        data = [];
+        
+        for(i=0; i<n; i++) {
+            var value = Math.floor((Math.random() * 500) + 1);
+            data.push(value);
+        }
+        return data;
+    }
+    
+    function get_filter_value() {
+        var value = null;
+        var x=document.getElementById("filter_value").value;
+        value = parseInt(x);
+        if(isNaN(value))
+            value=100;
+        
+        return value;
+        }
+        
+    </script>
+</body>
+</html>
