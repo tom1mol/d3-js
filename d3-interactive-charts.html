@@ -67,7 +67,7 @@
     
         //remove any new rectangles and labels that are needed(if new data has less items than existing chart)
         bars.exit().remove();
-        labels.exit().remove;
+        labels.exit().remove();  // was missing () after remove
         
         //append any new rectangles and labels that are needed(if new data has more items than existing chart)
         create_bars(bars);
@@ -104,7 +104,7 @@
     function create_labels(labels) {
         labels.enter()
         .append("text")
-        .attr("text-anchor, "middle")
+        .attr("text-anchor", "middle")          //was missing "" after anchor
         .attr("font-family", "sans-serif")
         .attr("font-size", "11px")
         .attr("fill", "white");
@@ -118,7 +118,7 @@
             return d;
         })
         .attr("x", function(d, i) {
-            return i * colWidth + barWidth / 2;
+            return i * colwidth + barwidth / 2;
         })
         .attr("y", function(d) {
             return h - d + 14;
@@ -129,7 +129,7 @@
     function generate_random_data(n) {
         var data = [];
         
-        for(var i-0; i<n; i++) {
+        for(var i=0; i<n; i++) {
             var value = Math.floor((Math.random() * 500) + 1);
             data.push(value);
         }
@@ -139,7 +139,7 @@
     // get the value from the filter input box, or use 100 by default.
     function get_filter_value() {
         var value = null;
-        var x-document.getElementById("filter_value").value;
+        var x=document.getElementById("filter_value").value;
         value = parseInt(x, 10);
         
         if(isNaN(value))
